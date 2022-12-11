@@ -86,6 +86,7 @@ label {
 
 .journal__delete:hover {
   color: #f55a5a;
+  cursor: pointer;
 }
 
 .journal__info {
@@ -229,4 +230,12 @@ label {
 
   background-color: #8ce427;
   color: #ffffff;
+}
+
+.wrong::placeholder {
+  color: #f55a5a;
+}
+
+.wrong {
+  color: #f55a5a;
 }

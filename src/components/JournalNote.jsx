@@ -13,7 +13,10 @@ function JournalNote(props) {
           className="journal__img"
         />
       )}
-      <div className="journal__delete" onClick={() => props.deleteNote()}>
+      <div
+        className="journal__delete"
+        onClick={(event) => props.deleteNote(event, props.id)}
+      >
         <i className="ri-delete-bin-fill"></i>
       </div>
       <div className="journal__info">

@@ -9,7 +9,7 @@ function NewNote(props) {
     location: "",
     mapLink: "",
     title: "",
-    date: "",
+    escriptiondate: "",
     description: "",
   });
 
@@ -142,9 +142,11 @@ function NewNote(props) {
         />
       )}
       {showInput && (
-        <div className="dates">
+        <div className="dates" id="dates">
           <div className="dates__arrive">
-            <label htmlFor="dateArrive">Date you arrived</label>
+            <label id="label-date-arrive" htmlFor="dateArrive">
+              Date you arrived
+            </label>
             <input
               onChange={noteDateHandleChange}
               className="note__input"
@@ -154,7 +156,9 @@ function NewNote(props) {
             />
           </div>
           <div className="dates__left">
-            <label htmlFor="dateLeft">Date you left</label>
+            <label id="label-date-left" htmlFor="dateLeft">
+              Date you left
+            </label>
             <input
               onChange={noteDateHandleChange}
               className="note__input"
@@ -187,8 +191,85 @@ function NewNote(props) {
       {showInput && (
         <button
           onClick={() => {
-            props.addNewNote(noteFormData);
-            setShowInput((prevShowInput) => !prevShowInput);
+            let status = true;
+            if (!noteFormData.img.includes("http")) {
+              status = false;
+              setNoteFormData((prevNoteFormData) => {
+                return { ...prevNoteFormData, img: "" };
+              });
+              document.getElementById("input-img").className += " wrong";
+              setTimeout(
+                () =>
+                  (document.getElementById("input-img").className =
+                    "note__input"),
+                3000
+              );
+            }
+            if (noteFormData.location === "") {
+              status = false;
+              document.getElementById("input-location").className += " wrong";
+              setTimeout(
+                () =>
+                  (document.getElementById("input-location").className =
+                    "note__input"),
+                3000
+              );
+            }
+            if (!noteFormData.mapLink.includes("goo.gl")) {
+              status = false;
+              setNoteFormData((prevNoteFormData) => {
+                return { ...prevNoteFormData, mapLink: "" };
+              });
+              document.getElementById("input-maplink").className += " wrong";
+              setTimeout(
+                () =>
+                  (document.getElementById("input-maplink").className =
+                    "note__input"),
+                3000
+              );
+            }
+            if (noteFormData.title === "") {
+              status = false;
+              document.getElementById("input-title").className += " wrong";
+              setTimeout(
+                () =>
+                  (document.getElementById("input-title").className =
+                    "note__input"),
+                3000
+              );
+            }
+            if (noteDateData.dateArrive === "") {
+              status = false;
+              document.getElementById("label-date-arrive").className = "wrong";
+              setTimeout(() => {
+                document.getElementById("label-date-arrive").className = "";
+              }, 3000);
+            }
+            if (noteDateData.dateLeft === "") {
+              status = false;
+              document.getElementById("label-date-left").className = "wrong";
+              setTimeout(() => {
+                document.getElementById("label-date-left").className = "";
+              }, 3000);
+            }
+            if (noteFormData.description === "") {
+              status = false;
+              setNoteFormData((prevNoteFormData) => {
+                return { ...prevNoteFormData, description: "" };
+              });
+              document.getElementById("input-description").className +=
+                " wrong";
+              setTimeout(
+                () =>
+                  (document.getElementById("input-description").className =
+                    "note__input"),
+                3000
+              );
+            }
+            if (status) {
+              props.addNewNote(noteFormData);
+              setShowInput((prevShowInput) => !prevShowInput);
+            }
           }}
           type="button"
           className="note__submit-btn"
